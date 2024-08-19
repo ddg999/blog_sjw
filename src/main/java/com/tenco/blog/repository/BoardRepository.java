@@ -27,7 +27,4 @@ public interface BoardRepository {
 
 	// 글 갯수
 	public int countAllBoard();
-
-	// 글 번호 갱신 
-	public void updatePostNumber(Integer deletePostNumber);
 }

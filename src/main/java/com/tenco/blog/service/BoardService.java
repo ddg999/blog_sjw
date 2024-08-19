@@ -16,6 +16,7 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 
+	// 글 작성
 	@Transactional
 	public void createBoard(Board board) {
 		int result = 0;
@@ -29,16 +30,19 @@ public class BoardService {
 		}
 	}
 
+	// 글 수정
 	@Transactional
 	public void updateBoard(Board board) {
 		boardRepository.updateById(board);
 	}
 
+	// 글 삭제
 	@Transactional
 	public void deleteBoard(Integer id) {
 		boardRepository.deleteById(id);
 	}
 
+	// 글 목록
 	@Transactional
 	public List<Board> readAllBoard(int page, int size) {
 		List<Board> boardList = new ArrayList<>();
@@ -48,18 +52,15 @@ public class BoardService {
 		return boardList;
 	}
 
+	// 글 갯수
 	@Transactional
 	public int countAllBoard() {
 		return boardRepository.countAllBoard();
 	}
 
+	// 글 찾기
 	@Transactional
 	public Board readBoardById(Integer id) {
 		return boardRepository.readBoardById(id);
-	}
-
-	@Transactional
-	public void updatePostNumber(Integer deletePostNumber) {
-		boardRepository.updatePostNumber(deletePostNumber);
 	}
 }

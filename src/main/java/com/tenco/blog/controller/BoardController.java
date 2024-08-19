@@ -17,9 +17,10 @@ import com.tenco.blog.service.BoardService;
 public class BoardController {
 
 	@Autowired
-	BoardService boardService;
+	private BoardService boardService;
 
-	@GetMapping("/")
+	// 글 목록 페이지
+	@GetMapping({ "/", "/list" })
 	public String index(@RequestParam(name = "size", defaultValue = "5") int size, @RequestParam(name = "page", defaultValue = "1") int page, Model model) {
 
 		int totalRecords = boardService.countAllBoard();
@@ -38,11 +39,13 @@ public class BoardController {
 		return "index";
 	}
 
+	// 글 작성 페이지
 	@GetMapping("/board/saveForm")
 	public String saveForm() {
 		return "board/saveForm";
 	}
 
+	// 글 수정 페이지
 	@GetMapping("/board/{id}/updateForm")
 	public String updateForm(@PathVariable(name = "id") Integer id, Model model) {
 		Board board = boardService.readBoardById(id);
@@ -50,6 +53,7 @@ public class BoardController {
 		return "board/updateForm";
 	}
 
+	// 글 작성
 	@PostMapping("/board/save")
 	public String save(Board board, Model model) {
 		if (board.getTitle() == null || board.getTitle().length() > 20 || board.getContent() == null || board.getContent().length() > 20) {
@@ -59,6 +63,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 
+	// 글 수정
 	@PostMapping("/board/{id}/update")
 	public String update(Board board, @PathVariable(name = "id") Integer id) {
 		if (board.getTitle() == null || board.getTitle().length() > 20 || board.getContent() == null || board.getContent().length() > 20) {
@@ -68,9 +73,9 @@ public class BoardController {
 		return "redirect:/";
 	}
 
+	// 글 삭제
 	@PostMapping("/board/{id}/delete")
 	public String delete(@PathVariable(name = "id") Integer id) {
-		boardService.updatePostNumber(id);
 		boardService.deleteBoard(id);
 		return "redirect:/";
 	}

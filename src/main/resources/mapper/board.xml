@@ -28,9 +28,4 @@
 	<select id="readBoardById" resultType="com.tenco.blog.model.Board">
 		select * from board_tb where id = #{id}
 	</select>
-
-	<update id="updatePostNumber">
-		update board_tb set post_number = post_number - 1 where post_number > #{deletePostNumber}
-	</update>
-
 </mapper>
